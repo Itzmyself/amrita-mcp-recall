@@ -1,12 +1,10 @@
-@Module({
-  name: 'recall',
-  description: 'Memory agent for capturing and recalling student observations',
-  imports: [StorageModule],
-  providers: [ObservationService],
-  exports: [ObservationService],
-})
-export class RecallModule {
-  constructor(private observationService: ObservationService) {}
+import { Module } from '@nitrostack/core';
+import { DatabaseService } from './database.service.js';
 
-  // Provide access to tools, resources, prompts through getters or static methods
-}
+@Module({
+  name: 'storage',
+  description: 'SQLite storage layer for Recall observations',
+  providers: [DatabaseService],
+  exports: [DatabaseService],
+})
+export class StorageModule {}
