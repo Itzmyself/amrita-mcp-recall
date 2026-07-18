@@ -1,20 +1,24 @@
-import { Module } from '@nitrostack/core';
-import { StorageModule } from '../storage/storage.module.js';
-import { RecallTools } from './recall.tools.js';
-import { RecallResources } from './recall.resources.js';
-import { RecallPrompts } from './recall.prompts.js';
-import { ObservationService } from './observation.service.js';
+import { McpApp, Module, ConfigModule } from '@nitrostack/core';
+import { StorageModule } from './modules/storage/storage.module.js';
+import { RecallModule } from './modules/recall/recall.module.js';
 
-@Module({
-  name: 'recall',
-  description: 'Memory agent for capturing and recalling student observations',
-  imports: [StorageModule],
-  providers: [
-    ObservationService,
-    RecallTools,      // Register as provider so it's injectable
-    RecallResources,
-    RecallPrompts,
-  ],
-  exports: [ObservationService, RecallTools, RecallResources, RecallPrompts],
+@McpApp({
+  module: AppModule,
+  server: {
+    name: 'recall-mcp',
+    version: '1.0.0',
+  },
+  logging: {
+    level: 'info',
+  },
 })
-export class RecallModule {}
+@Module({
+  name: 'app',
+  description: 'Root application module for Recall MCP server',
+  imports: [
+    ConfigModule.forRoot(),
+    StorageModule,
+    RecallModule,
+  ],
+})
+export class AppModule {}
