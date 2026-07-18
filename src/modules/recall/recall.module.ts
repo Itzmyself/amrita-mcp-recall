@@ -1,10 +1,3 @@
-// ============================================================================
-// Recall MCP Server — Recall Feature Module
-// ============================================================================
-// Registers all Recall MCP primitives (tools, resources, prompts) and
-// the ObservationService business logic provider.
-// ============================================================================
-
 import { Module } from '@nitrostack/core';
 import { StorageModule } from '../storage/storage.module.js';
 import { RecallTools } from './recall.tools.js';
@@ -16,10 +9,17 @@ import { ObservationService } from './observation.service.js';
   name: 'recall',
   description: 'Memory agent for capturing and recalling student observations',
   imports: [StorageModule],
-  tools: [RecallTools],  // If NitroStack supports this
-  resources: [RecallResources],
-  prompts: [RecallPrompts],
-  providers: [ObservationService],
-  exports: [ObservationService],
+  providers: [
+    ObservationService,
+    RecallTools,
+    RecallResources,
+    RecallPrompts,
+  ],
+  exports: [
+    ObservationService,
+    RecallTools,
+    RecallResources,
+    RecallPrompts,
+  ],
 })
 export class RecallModule {}
