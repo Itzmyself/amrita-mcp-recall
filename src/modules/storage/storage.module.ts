@@ -1,16 +1,20 @@
-// ============================================================================
-// Recall MCP Server — Storage Module
-// ============================================================================
-// Provides the DatabaseService globally so any module can access SQLite.
-// ============================================================================
-
 import { Module } from '@nitrostack/core';
-import { DatabaseService } from './database.service.js';
+import { StorageModule } from '../storage/storage.module.js';
+import { RecallTools } from './recall.tools.js';
+import { RecallResources } from './recall.resources.js';
+import { RecallPrompts } from './recall.prompts.js';
+import { ObservationService } from './observation.service.js';
 
 @Module({
-  name: 'storage',
-  description: 'SQLite storage layer for Recall observations',
-  providers: [DatabaseService],
-  exports: [DatabaseService],
+  name: 'recall',
+  description: 'Memory agent for capturing and recalling student observations',
+  imports: [StorageModule],
+  providers: [
+    ObservationService,
+    RecallTools,      // Register as provider so it's injectable
+    RecallResources,
+    RecallPrompts,
+  ],
+  exports: [ObservationService, RecallTools, RecallResources, RecallPrompts],
 })
-export class StorageModule {}
+export class RecallModule {}
