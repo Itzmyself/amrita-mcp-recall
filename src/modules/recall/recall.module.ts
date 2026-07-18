@@ -16,7 +16,9 @@ import { ObservationService } from './observation.service.js';
   name: 'recall',
   description: 'Memory agent for capturing and recalling student observations',
   imports: [StorageModule],
-  controllers: [RecallTools, RecallResources, RecallPrompts],
+  tools: [RecallTools],  // If NitroStack supports this
+  resources: [RecallResources],
+  prompts: [RecallPrompts],
   providers: [ObservationService],
   exports: [ObservationService],
 })
